@@ -1,31 +1,26 @@
-"use client";
-import Link from "next/link";
-import {
-  FaHome,
-  FaUserFriends,
-  FaCompass,
-  FaVideo,
-  FaInbox,
-  FaRegUser,
-  FaPlus,
-} from "react-icons/fa";
+'use client';
+import Link from 'next/link';
+import { 
+  FaHome, FaUserFriends, FaCompass, FaVideo, 
+  FaPlus, FaUser, FaSignInAlt, FaUserPlus
+} from 'react-icons/fa';
 
 export default function MainLayout({ children }) {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="w-60 border-r fixed h-full overflow-y-auto">
+      <div className="w-60 border-r fixed h-full overflow-y-auto bg-white">
         <div className="p-4">
           <Link href="/" className="text-xl font-bold flex items-center">
             <span className="text-red-500 mr-1">TikTok</span>
           </Link>
         </div>
-
+        
         <nav className="mt-4">
           <ul className="space-y-2">
             <li>
-              <Link
-                href="/"
+              <Link 
+                href="/" 
                 className="flex items-center p-3 hover:bg-gray-100 rounded-md mx-2"
               >
                 <FaHome className="text-xl mr-3" />
@@ -33,8 +28,8 @@ export default function MainLayout({ children }) {
               </Link>
             </li>
             <li>
-              <Link
-                href="/following"
+              <Link 
+                href="/following" 
                 className="flex items-center p-3 hover:bg-gray-100 rounded-md mx-2"
               >
                 <FaUserFriends className="text-xl mr-3" />
@@ -42,8 +37,8 @@ export default function MainLayout({ children }) {
               </Link>
             </li>
             <li>
-              <Link
-                href="/explore"
+              <Link 
+                href="/explore" 
                 className="flex items-center p-3 hover:bg-gray-100 rounded-md mx-2"
               >
                 <FaCompass className="text-xl mr-3" />
@@ -51,24 +46,50 @@ export default function MainLayout({ children }) {
               </Link>
             </li>
             <li>
-              <Link
-                href="/live"
+              <Link 
+                href="/live" 
                 className="flex items-center p-3 hover:bg-gray-100 rounded-md mx-2"
               >
                 <FaVideo className="text-xl mr-3" />
                 <span>LIVE</span>
               </Link>
             </li>
+            <li>
+              <Link 
+                href="/profile" 
+                className="flex items-center p-3 hover:bg-gray-100 rounded-md mx-2"
+              >
+                <FaUser className="text-xl mr-3" />
+                <span>Profile</span>
+              </Link>
+            </li>
+            {/* Auth links in sidebar */}
+            <li className="border-t pt-2 mt-2">
+              <Link 
+                href="/login" 
+                className="flex items-center p-3 hover:bg-gray-100 rounded-md mx-2 text-blue-600"
+              >
+                <FaSignInAlt className="text-xl mr-3" />
+                <span>Login</span>
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/signup" 
+                className="flex items-center p-3 hover:bg-gray-100 rounded-md mx-2 text-green-600"
+              >
+                <FaUserPlus className="text-xl mr-3" />
+                <span>Sign Up</span>
+              </Link>
+            </li>
           </ul>
         </nav>
-
+        
+        {/* Suggested accounts */}
         <div className="border-t mt-4 pt-4 px-2">
           <p className="text-gray-500 text-sm px-3 mb-2">Suggested accounts</p>
           {Array.from({ length: 5 }).map((_, index) => (
-            <div
-              key={index}
-              className="flex items-center p-2 hover:bg-gray-100 rounded-md"
-            >
+            <div key={index} className="flex items-center p-2 hover:bg-gray-100 rounded-md cursor-pointer">
               <div className="h-8 w-8 rounded-full bg-gray-300 mr-2"></div>
               <div>
                 <p className="text-sm font-semibold">user_{index + 1}</p>
@@ -77,79 +98,49 @@ export default function MainLayout({ children }) {
             </div>
           ))}
         </div>
-
-        <div className="px-3 py-4 mt-2">
-          <p className="text-sm text-gray-500 mb-4">
-            Log in to follow creators, like videos, and view comments.
-          </p>
-          <button className="w-full py-2 px-4 border rounded-md font-medium mb-2">
-            Login
-          </button>
-        </div>
-
+        
         <div className="border-t px-3 py-4 text-xs text-gray-500">
           <p className="mb-2">© 2025 TikTok</p>
         </div>
       </div>
-
+      
       {/* Main content */}
       <div className="ml-60 flex-1">
-        <div className="max-w-[1150px] mx-auto">
-          {/* Top header with search */}
-          <header className="h-16 border-b flex items-center justify-between px-4">
-            <div className="w-1/3"></div>
-            <div className="w-1/3">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search accounts and videos"
-                  className="w-full bg-gray-100 py-2 pl-10 pr-4 rounded-full"
-                />
-                <FaCompass className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              </div>
-            </div>
-
-            <div className="w-1/3 flex justify-end space-x-4">
-              <Link href="/upload">
-                <button className="border px-3 py-1 rounded-md hover:bg-gray-50 flex items-center">
-                  <FaPlus className="mr-2" /> Upload
-                </button>
-              </Link>
-
-              <div className="px-3 py-4 mt-2">
-                <p className="text-sm text-gray-500 mb-4">
-                  Log in to follow creators, like videos, and view comments.
-                </p>
-                
-                <Link href="/login">
-                  <button className="bg-red-500 text-white px-4 py-1.5 rounded-sm font-semibold">
-                    Log in
-                  </button>
-                </Link>
-
-                <Link href="/signup">
-                  <button className="w-full py-2 px-4 bg-red-500 text-white rounded-md font-medium hover:bg-red-600">
-                    Sign up
-                  </button>
-                </Link>
-              </div>
-
-              <div>
-                <Link
-                  href="/profile"
-                  className="flex items-center p-3 hover:bg-gray-100 rounded-md mx-2"
-                >
-                  <FaRegUser className="text-xl mr-3" />
-                  <span>Profile</span>
-                </Link>
-              </div>
-            </div>
-          </header>
-
-          {/* Main content */}
-          <main>{children}</main>
-        </div>
+        {/* Header with auth buttons */}
+        <header className="border-b p-4 flex justify-between items-center bg-white sticky top-0 z-10">
+          <div>
+            <h1 className="text-xl font-semibold">TikTok Feed</h1>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Link href="/upload">
+              <button className="flex items-center space-x-2 px-4 py-2 border rounded-md hover:bg-gray-50 transition">
+                <FaPlus className="text-sm" />
+                <span>Upload</span>
+              </button>
+            </Link>
+            
+            {/* Auth buttons in header */}
+            <Link href="/login">
+              <button className="flex items-center space-x-2 px-4 py-2 border border-blue-500 text-blue-600 rounded-md hover:bg-blue-50 transition">
+                <FaSignInAlt className="text-sm" />
+                <span>Login</span>
+              </button>
+            </Link>
+            
+            <Link href="/signup">
+              <button className="flex items-center space-x-2 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
+                <FaUserPlus className="text-sm" />
+                <span>Sign Up</span>
+              </button>
+            </Link>
+          </div>
+        </header>
+        
+        {/* Page content */}
+        <main className="p-4 bg-gray-50 min-h-screen">
+          {children}
+        </main>
       </div>
     </div>
-  );
+ );
 }
